@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const appName = "Live_Tag";
-const apiKey = "7347F7B4-F742-0EA8-A760-F0B567C3F12B"
-const url = 'https://rest.clicksend.com/v3/sms/send';
+const apiKey = ""
+const url = '';
 
 export async function sendMessage(userName, contactName, contactPhone, trackingLink) {
     try {

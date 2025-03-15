@@ -1,3 +1,5 @@
+import "./styles.css";
+import logo from "./assets/livetag-logo.png";
 import { useEffect, useState } from "react";
 import { sendMessage } from "./utils/sendMessage";
 
@@ -61,7 +63,7 @@ function App() {
         if (!userId) return;
 
         try {
-            const response = await fetch("http://localhost:3000/update-location", {
+            const response = await fetch("http://localhost:5173/update-location", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -90,38 +92,60 @@ function App() {
         const newTrackingLink = `http://localhost:5173/track/${newUserId}`;
         setTrackingLink(newTrackingLink);
 
+        /*
         const sendHelp = await sendMessage(userName, contactName, contactPhone, newTrackingLink);
         if (!sendHelp) {
             return;
         }
+        */
 
         getLocation();
     }
 
     return (
-        <div>
-            <h1>LiveTag - Emergency Location Sharing</h1>
-            <input
-                type="text"
-                placeholder="Enter your name"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder="Emergency contact name"
-                value={contactName}
-                onChange={(e) => setContactName(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder="Emergency contact phone number"
-                value={contactPhone}
-                onChange={(e) => setContactPhone(e.target.value)}
-            />
+        <div className="container">
+            <div className="form-container">
+                {/* Live Tag Logo */}
+                <img src={logo} alt="Live Tag Logo" className="logo" />
 
-            <button onClick={handleGenerateLink}>Generate Tracking Link</button>
-            {trackingLink && <p>Share this link: <a href={trackingLink}>{trackingLink}</a></p>}
+                <h1>LiveTag - Emergency Location Sharing</h1>
+                <div className="input-box">
+                    <label>👤 User Name</label>
+                    <input
+                        type="text"
+                        placeholder="Enter your name"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                </div>
+
+                <div className="input-box">
+                    <label>👤 Contact Name</label>
+                    <input
+                        type="text"
+                        placeholder="Emergency contact name"
+                        value={contactName}
+                        onChange={(e) => setContactName(e.target.value)}
+                    />
+                </div>
+                <div className="input-box">
+                    <label>📞 Contact Phone Number</label>
+                    <input
+                        type="text"
+                        placeholder="Emergency contact phone number"
+                        value={contactPhone}
+                        onChange={(e) => setContactPhone(e.target.value)}
+                    />
+                </div>
+
+                <button className="help-btn" onClick={handleGenerateLink}>🚨 GET HELP</button>
+
+                {trackingLink && (
+                    <p>
+                        Share this link: <a href={trackingLink}>{trackingLink}</a>
+                    </p>
+                )}
+            </div>
         </div>
     );
 }

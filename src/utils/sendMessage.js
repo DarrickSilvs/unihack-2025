@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const appName = "Live_Tag";
-const apiKey = ""
-const url = '';
+const apiKey = import.meta.env.VITE_SMS_API_KEY;
+const url = import.meta.env.VITE_SMS_URL;
 
 export async function sendMessage(userName, contactName, contactPhone, trackingLink) {
     try {

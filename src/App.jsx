@@ -106,12 +106,10 @@ function App() {
         const newTrackingLink = `http://localhost:5173/track/${newUserId}`;
         setTrackingLink(newTrackingLink);
 
-        /*
-        const sendHelp = await sendMessage(userName, contactName, contactPhone, newTrackingLink);
-        if (!sendHelp) {
-            return;
-        }
-        */
+        // const sendHelp = await sendMessage(userName, contactName, contactPhone, newTrackingLink);
+        // if (!sendHelp) {
+        //     return;
+        // }
 
         getLocation();
     }

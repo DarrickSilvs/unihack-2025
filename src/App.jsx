@@ -6,9 +6,18 @@ function App() {
     const [trackingLink, setTrackingLink] = useState(null);
 
     async function handleGenerateLink() {
-        const userId = 1;  
-        
-        const link = await generateTrackingLink(userId);
+
+        const name = "John Doe";
+        const { data, error } = await supabase
+        .from("users")
+        .insert([{ name: name}]);
+
+        if (error) {
+            console.error("Error inserting link into Supabase:", error);
+            return null;
+        }
+    
+        const link = await generateTrackingLink(data[0].id);
         if (link) {
             setTrackingLink(link);
         }

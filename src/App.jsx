@@ -21,7 +21,21 @@ function App() {
                     setCurrentLocation(newLocation);
                 },
                 (error) => {
-                    console.error("Error getting location:", error);
+
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            console.log("User denied the request for Geolocation.");
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            console.log("Location information is unavailable.");
+                            break;
+                        case error.TIMEOUT:
+                            console.log("The request to get location timed out.");
+                            break;
+                        default:
+                            console.log("An unknown error occurred.");
+                            break;
+                    }
                 }
             );
         } else {
@@ -63,7 +77,7 @@ function App() {
         if (!userId) return;
 
         try {
-            const response = await fetch("http://localhost:5173/update-location", {
+            const response = await fetch("http://localhost:3000/update-location", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

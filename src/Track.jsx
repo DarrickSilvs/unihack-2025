@@ -11,7 +11,7 @@ function Track() {
     useEffect(() => {
         const fetchLocation = async () => {
             try {
-                const response = await fetch(`http://localhost:5173/get-location/${userId}`);
+                const response = await fetch(`http://localhost:3000/get-location/${userId}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch location: ${response.statusText}`);

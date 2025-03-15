@@ -27,7 +27,7 @@ function App() {
             setTrackingLink(link);
         }
 
-        const sendHelp = await sendMessage(trackingLink);
+        const sendHelp = await sendEmergencyMessage(trackingLink);
         if (!sendHelp) {
             return;
         }

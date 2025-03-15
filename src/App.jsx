@@ -6,7 +6,7 @@ function App() {
     const [trackingLink, setTrackingLink] = useState(null);
 
     async function handleGenerateLink() {
-        const userId = "user-id-placeholder";  
+        const userId = 1;  
         
         const link = await generateTrackingLink(userId);
         if (link) {

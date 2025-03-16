@@ -1,3 +1,4 @@
+import "./styles.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Map from "./components/Map";
@@ -8,10 +9,12 @@ function Track() {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
+    const link = import.meta.env.VITE_LINK
+
     useEffect(() => {
         const fetchLocation = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/get-location/${userId}`);
+                const response = await fetch(`${link}/api/get-location/${userId}`);
 
                 if (!response.ok) {
                     throw new Error(`Failed to fetch location: ${response.statusText}`);
@@ -48,10 +51,9 @@ function Track() {
     }
 
     return (
-        <div>
+        <div className="location-container">
             <h1>Tracking Location</h1>
-            <p>Latitude: {location.latitude}</p>
-            <p>Longitude: {location.longitude}</p>
+            <p>Last Updated: {location.timestamp}</p>
             <Map location={location} />
         </div>
     );

@@ -12,6 +12,8 @@ function App() {
     const [currentLocation, setCurrentLocation] = useState(null);
     const [previousLocation, setPreviousLocation] = useState(null);
 
+    const link = import.meta.env.VITE_LINK
+
     const getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -77,7 +79,7 @@ function App() {
         if (!userId) return;
 
         try {
-            const response = await fetch("http://localhost:3000/update-location", {
+            const response = await fetch(`${link}/api/update-location`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -99,17 +101,22 @@ function App() {
         }
     };
 
+    const generateRandom = () => {
+        return Math.floor(Math.random() * 100000);
+    }
+
     async function handleGenerateLink() {
-        const newUserId = 12345
+
+        const newUserId = generateRandom();
         setUserId(newUserId);
 
-        const newTrackingLink = `http://localhost:5173/track/${newUserId}`;
+        const newTrackingLink = `${link}/track/${newUserId}`;
         setTrackingLink(newTrackingLink);
 
-        // const sendHelp = await sendMessage(userName, contactName, contactPhone, newTrackingLink);
-        // if (!sendHelp) {
-        //     return;
-        // }
+        const sendHelp = await sendMessage(userName, contactName, contactPhone, newTrackingLink);
+        if (!sendHelp) {
+            return;
+        }
 
         getLocation();
     }

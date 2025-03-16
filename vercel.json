@@ -1,5 +1,0 @@
-{
-    "rewrites": [
-      { "source": "/track/:userId", "destination": "/track/[userId].js" }
-    ]
-  }

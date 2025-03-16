@@ -67,24 +67,23 @@ export default function Home() {
   const sendLocationUpdate = async (location) => {
     if (!userId) return;
 
-    try {
-      const response = await fetch(`/api/update-location`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId,
-          latitude: location.latitude,
-          longitude: location.longitude,
-        }),
-      });
+    const now = new Date();
+    const formattedTime = now.toTimeString().split(" ")[0];
 
-      if (response.ok) {
-        console.log("Location update sent successfully.");
-      } else {
-        console.error("Failed to send location update.");
-      }
-    } catch (error) {
-      console.error("Error sending location update:", error);
+    const locationData = { userId, latitude: location.latitude, longitude: location.longitude, timestamp: formattedTime };
+
+    const response = await fetch('/api/update-location', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(locationData),
+    });
+
+    if (response.ok) {
+      console.log(`Location update sent successfully for user ${userId}:`, locationData);
+    } else {
+      console.error('Failed to send location update.');
     }
   };
 
@@ -94,11 +93,11 @@ export default function Home() {
     const newUserId = generateRandom();
     setUserId(newUserId);
 
-    const newTrackingLink = `http://livetag.me/track/${newUserId}`;
+    const newTrackingLink = window.location.href + `/track/${newUserId}`;
     setTrackingLink(newTrackingLink);
 
-    const sendHelp = await sendMessage(userName, contactName, contactPhone, newTrackingLink);
-    if (!sendHelp) return;
+    // const sendHelp = await sendMessage(userName, contactName, contactPhone, newTrackingLink);
+    // if (!sendHelp) return;
 
     getLocation();
   }
